@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://7a16gqfmoe4i"]
+
+[ext_resource type="Script" uid="uid://4rwopp5itd7x" path="res://main.gd" id="1_ig7tw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ig7tw"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="Main" type="Node" unique_id=2016173843]
+script = ExtResource("1_ig7tw")
+
+[node name="Panel" type="Panel" parent="." unique_id=581582124]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ig7tw")
