@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dscer08b17t18"]
 
-[ext_resource type="Script" uid="uid://c0ovxv2y0natb" path="res://loading_zone.gd" id="1_xkf7v"]
+[ext_resource type="Script" uid="uid://c0ovxv2y0natb" path="res://levels/loading_zone.gd" id="1_xkf7v"]
 
 [node name="loading zone" type="Area3D" unique_id=1459717604]
 collision_layer = 0

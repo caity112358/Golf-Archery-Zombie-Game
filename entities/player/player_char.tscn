@@ -1,11 +1,116 @@
-[gd_scene format=3 uid="uid://dmqq0rsth0p56"]
+[gd_scene format=3 uid="uid://bxdkvnu0gptkq"]
 
-[ext_resource type="Script" uid="uid://cn68m0mdxt813" path="res://entities/player/player_char.gd" id="1_kskvu"]
+[ext_resource type="Script" uid="uid://dakf4yf5diecb" path="res://entities/player/player_char.gd" id="1_gvcic"]
+[ext_resource type="PackedScene" uid="uid://j5dqhjr607jb" path="res://entities/player/model/arrow.blend" id="1_kskvu"]
+[ext_resource type="Script" uid="uid://dtd5w0v7brucn" path="res://entities/helper_scripts/classes/state_machine.gd" id="2_l8yks"]
+[ext_resource type="Script" uid="uid://bycvrd08b1lda" path="res://entities/player/states/idle.gd" id="3_cuboh"]
+[ext_resource type="Script" uid="uid://cgf0ipbpcrks8" path="res://entities/player/states/move.gd" id="5_gvcic"]
+[ext_resource type="Script" uid="uid://jp3s0ecmfrg3" path="res://entities/player/states/sprint.gd" id="6_b5h5d"]
+[ext_resource type="Script" uid="uid://cp7mfto28eykt" path="res://entities/player/states/fall.gd" id="7_sos30"]
+[ext_resource type="Script" uid="uid://bp20r1ejm1t67" path="res://entities/player/states/aim.gd" id="8_sos30"]
+[ext_resource type="Script" uid="uid://bhnk3g7nmikah" path="res://entities/player/states/jump.gd" id="9_sdwat"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7k3hj"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0ny5y"]
 
-[node name="player_char" type="CharacterBody3D" unique_id=1519675564]
-script = ExtResource("1_kskvu")
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gnhdx"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=278074621]
-shape = SubResource("CapsuleShape3D_7k3hj")
+[node name="PlayerCharacter" type="CharacterBody3D" unique_id=1135699212]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("1_gvcic")
+metadata/_custom_type_script = "uid://bl38734rgx2tu"
+
+[node name="CameraPivot" type="Node3D" parent="." unique_id=2004750562]
+unique_name_in_owner = true
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 1.5, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=360305513]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+spring_length = 4.0
+
+[node name="PlayerCamera" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=202253152]
+unique_name_in_owner = true
+current = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=344310837]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+shape = SubResource("CapsuleShape3D_0ny5y")
+
+[node name="Model" type="Node3D" parent="." unique_id=567857259]
+unique_name_in_owner = true
+
+[node name="Arrow" parent="Model" unique_id=174090327 instance=ExtResource("1_kskvu")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1, 0)
+
+[node name="Capsule" type="MeshInstance3D" parent="Model" unique_id=679216831]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_gnhdx")
+
+[node name="StateMachine" type="Node" parent="." unique_id=1583619520 node_paths=PackedStringArray("entity", "initial_state", "camera")]
+script = ExtResource("2_l8yks")
+entity = NodePath("..")
+initial_state = NodePath("Idle")
+camera = NodePath("../CameraPivot/SpringArm3D/PlayerCamera")
+metadata/_custom_type_script = "uid://dtd5w0v7brucn"
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=325172257 node_paths=PackedStringArray("move_state", "fall_state", "jump_state")]
+script = ExtResource("3_cuboh")
+move_state = NodePath("../Move")
+fall_state = NodePath("../Fall")
+jump_state = NodePath("../Jump")
+metadata/_custom_type_script = "uid://byggpmwonoxor"
+
+[node name="Move" type="Node" parent="StateMachine" unique_id=1468771386 node_paths=PackedStringArray("idle_state", "sprint_state", "fall_state", "jump_state")]
+script = ExtResource("5_gvcic")
+idle_state = NodePath("../Idle")
+sprint_state = NodePath("../Sprint")
+fall_state = NodePath("../Fall")
+jump_state = NodePath("../Jump")
+can_move = true
+move_speed = 8.0
+acceleration = 20.0
+rotation_speed = 12.0
+metadata/_custom_type_script = "uid://byggpmwonoxor"
+
+[node name="Sprint" type="Node" parent="StateMachine" unique_id=1573492167 node_paths=PackedStringArray("idle_state", "move_state", "fall_state", "jump_state")]
+script = ExtResource("6_b5h5d")
+idle_state = NodePath("../Idle")
+move_state = NodePath("../Move")
+fall_state = NodePath("../Fall")
+jump_state = NodePath("../Jump")
+can_move = true
+move_speed = 20.0
+acceleration = 20.0
+rotation_speed = 12.0
+metadata/_custom_type_script = "uid://byggpmwonoxor"
+
+[node name="Fall" type="Node" parent="StateMachine" unique_id=280923700 node_paths=PackedStringArray("idle_state")]
+script = ExtResource("7_sos30")
+idle_state = NodePath("../Idle")
+can_move = true
+move_speed = 2.0
+acceleration = 20.0
+rotation_speed = 1.0
+gravity = 10.0
+metadata/_custom_type_script = "uid://byggpmwonoxor"
+
+[node name="Aim" type="Node" parent="StateMachine" unique_id=2083796530 node_paths=PackedStringArray("idle_state")]
+script = ExtResource("8_sos30")
+idle_state = NodePath("../Idle")
+acceleration = 100.0
+metadata/_custom_type_script = "uid://byggpmwonoxor"
+
+[node name="Jump" type="Node" parent="StateMachine" unique_id=1352308005 node_paths=PackedStringArray("fall_state")]
+script = ExtResource("9_sdwat")
+jump_timer = 0.25
+jump_force = 3.0
+fall_state = NodePath("../Fall")
+can_move = true
+move_speed = 8.0
+acceleration = 1.0
+rotation_speed = 12.0
+gravity = 0.0
+metadata/_custom_type_script = "uid://byggpmwonoxor"
+
+[editable path="Model/Arrow"]

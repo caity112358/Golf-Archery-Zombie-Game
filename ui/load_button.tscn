@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://brgkx1hp3j5h0"]
+
+[ext_resource type="Script" uid="uid://xwyvyw2wpj80" path="res://ui/title screen/load_button.gd" id="1_wa8dl"]
+
+[node name="Load Button" type="Button" unique_id=1352780324]
+custom_minimum_size = Vector2(50, 50)
+script = ExtResource("1_wa8dl")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
