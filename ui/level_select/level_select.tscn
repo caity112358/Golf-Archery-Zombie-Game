@@ -62,9 +62,10 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=10054893]
+[node name="Load Button" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=1352780324 instance=ExtResource("2_r5cd4")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_2hwju")
+text = "LEVEL ONE"
+scene_path = &"uid://utukdd6qjg15"
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=2047909283]
 layout_mode = 2
@@ -157,7 +158,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_2hwju")
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1676812191]
 layout_mode = 2
 
-[node name="Load Title Screen" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1352780324 instance=ExtResource("2_r5cd4")]
+[node name="Load Title Screen" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1881416810 instance=ExtResource("2_r5cd4")]
 layout_mode = 2
 text = "Back"
 scene_path = &"uid://blg0etsf6ky2l"
@@ -166,3 +167,8 @@ scene_path = &"uid://blg0etsf6ky2l"
 layout_mode = 2
 text = "Settings"
 scene_path = &"uid://cgfhweurfuits"
+
+[node name="Load Button" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=160191176 instance=ExtResource("2_r5cd4")]
+layout_mode = 2
+text = "Test Scene"
+scene_path = &"uid://cvgqlfi6vlxud"

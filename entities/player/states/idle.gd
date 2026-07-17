@@ -1,14 +1,15 @@
-extends State
+extends PlayerState
 
-@export var move_state: State
-@export var fall_state: State
-@export var jump_state: State
+@export var move_state: PlayerState
+@export var fall_state: PlayerState
+@export var jump_state: PlayerState
+@export var aim_state: PlayerState
 
-func enter_state() -> void:
-	print("entered idle")
+#func enter_state() -> void:
+	#print("entered idle")
 
 func update(_delta: float) -> void:
-	if !entity.is_on_floor():
+	if not player.is_on_floor():
 		switch_state.emit(fall_state)
 		return
 	
@@ -21,5 +22,6 @@ func update(_delta: float) -> void:
 		switch_state.emit(move_state)
 		return
 	
-	if Input.is_action_pressed("jump"):
+	if Input.is_action_just_pressed("jump"):
 		switch_state.emit(jump_state)
+		return

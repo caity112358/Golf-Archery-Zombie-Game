@@ -2,25 +2,236 @@
 
 [ext_resource type="Script" uid="uid://dakf4yf5diecb" path="res://entities/player/player_char.gd" id="1_gvcic"]
 [ext_resource type="PackedScene" uid="uid://j5dqhjr607jb" path="res://entities/player/model/arrow.blend" id="1_kskvu"]
-[ext_resource type="Script" uid="uid://dtd5w0v7brucn" path="res://entities/helper_scripts/classes/state_machine.gd" id="2_l8yks"]
 [ext_resource type="Script" uid="uid://bycvrd08b1lda" path="res://entities/player/states/idle.gd" id="3_cuboh"]
+[ext_resource type="Script" uid="uid://dnsgkc8q72jvl" path="res://entities/helper_scripts/classes/state_machines/player_state_machine.gd" id="3_ujgvo"]
 [ext_resource type="Script" uid="uid://cgf0ipbpcrks8" path="res://entities/player/states/move.gd" id="5_gvcic"]
 [ext_resource type="Script" uid="uid://jp3s0ecmfrg3" path="res://entities/player/states/sprint.gd" id="6_b5h5d"]
 [ext_resource type="Script" uid="uid://cp7mfto28eykt" path="res://entities/player/states/fall.gd" id="7_sos30"]
 [ext_resource type="Script" uid="uid://bp20r1ejm1t67" path="res://entities/player/states/aim.gd" id="8_sos30"]
 [ext_resource type="Script" uid="uid://bhnk3g7nmikah" path="res://entities/player/states/jump.gd" id="9_sdwat"]
+[ext_resource type="Texture2D" uid="uid://ccbayw5qpqe0s" path="res://Simple-Red-Crosshair-png-2778467349.png" id="10_dlwrr"]
+[ext_resource type="Script" uid="uid://c01ayl0dssj60" path="res://entities/player/states/pose.gd" id="10_ujgvo"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0ny5y"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_gnhdx"]
 
-[node name="PlayerCharacter" type="CharacterBody3D" unique_id=1135699212]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sdwat"]
+transparency = 1
+
+[sub_resource type="Animation" id="Animation_sdwat"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model/Capsule:surface_material_override/0:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Crosshair:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CameraPivot/SpringArm3D/CameraRoot/PlayerCamera:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CameraPivot/SpringArm3D:spring_length")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [4.0]
+}
+
+[sub_resource type="Animation" id="Animation_dlwrr"]
+resource_name = "enter_aim"
+length = 0.033333335
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model/Capsule:surface_material_override/0:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.23529412)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Crosshair:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CameraPivot/SpringArm3D:spring_length")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CameraPivot/SpringArm3D/CameraRoot/PlayerCamera:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.6, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_h3la4"]
+resource_name = "enter_pose"
+length = 0.033333335
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model/Capsule:surface_material_override/0:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.92156863, 0.627451, 0.9137255, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ujgvo"]
+resource_name = "exit_aim"
+length = 0.033333335
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model/Capsule:surface_material_override/0:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Crosshair:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CameraPivot/SpringArm3D/CameraRoot/PlayerCamera:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CameraPivot/SpringArm3D:spring_length")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [4.0]
+}
+
+[sub_resource type="Animation" id="Animation_8x24v"]
+resource_name = "exit_pose"
+length = 0.033333335
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model/Capsule:surface_material_override/0:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qin7t"]
+resource_name = "sharp aim"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h3la4"]
+_data = {
+&"RESET": SubResource("Animation_sdwat"),
+&"enter_aim": SubResource("Animation_dlwrr"),
+&"enter_pose": SubResource("Animation_h3la4"),
+&"exit_aim": SubResource("Animation_ujgvo"),
+&"exit_pose": SubResource("Animation_8x24v"),
+&"sharp aim": SubResource("Animation_qin7t")
+}
+
+[node name="PlayerCharacter" type="CharacterBody3D" unique_id=1135699212 node_paths=PackedStringArray("aim_state", "camera_pivot", "camera", "hurtbox", "model", "state_machine")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+collision_layer = 5
 script = ExtResource("1_gvcic")
+aim_state = NodePath("StateMachine/Aim")
+camera_pivot = NodePath("CameraPivot")
+camera = NodePath("CameraPivot/SpringArm3D/CameraRoot/PlayerCamera")
+hurtbox = NodePath("Hurtbox")
+model = NodePath("Model")
+state_machine = NodePath("StateMachine")
 metadata/_custom_type_script = "uid://bl38734rgx2tu"
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=2004750562]
-unique_name_in_owner = true
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 1.5, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=360305513]
@@ -28,7 +239,9 @@ unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 spring_length = 4.0
 
-[node name="PlayerCamera" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=202253152]
+[node name="CameraRoot" type="Node3D" parent="CameraPivot/SpringArm3D" unique_id=1585559958]
+
+[node name="PlayerCamera" type="Camera3D" parent="CameraPivot/SpringArm3D/CameraRoot" unique_id=202253152]
 unique_name_in_owner = true
 current = true
 
@@ -37,8 +250,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
 shape = SubResource("CapsuleShape3D_0ny5y")
 
+[node name="Hurtbox" type="Area3D" parent="." unique_id=668085927]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=787028327]
+visible = false
+shape = SubResource("CapsuleShape3D_0ny5y")
+
 [node name="Model" type="Node3D" parent="." unique_id=567857259]
-unique_name_in_owner = true
 
 [node name="Arrow" parent="Model" unique_id=174090327 instance=ExtResource("1_kskvu")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1, 0)
@@ -46,22 +268,23 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1, 0)
 [node name="Capsule" type="MeshInstance3D" parent="Model" unique_id=679216831]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_gnhdx")
+surface_material_override/0 = SubResource("StandardMaterial3D_sdwat")
 
-[node name="StateMachine" type="Node" parent="." unique_id=1583619520 node_paths=PackedStringArray("entity", "initial_state", "camera")]
-script = ExtResource("2_l8yks")
-entity = NodePath("..")
-initial_state = NodePath("Idle")
-camera = NodePath("../CameraPivot/SpringArm3D/PlayerCamera")
-metadata/_custom_type_script = "uid://dtd5w0v7brucn"
+[node name="StateMachine" type="Node" parent="." unique_id=439958376 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_ujgvo")
+initial_state = NodePath("Pose")
+metadata/_custom_type_script = "uid://bq8n4kqav3j0e"
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=325172257 node_paths=PackedStringArray("move_state", "fall_state", "jump_state")]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=153166100 node_paths=PackedStringArray("move_state", "fall_state", "jump_state", "aim_state")]
 script = ExtResource("3_cuboh")
 move_state = NodePath("../Move")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
-metadata/_custom_type_script = "uid://byggpmwonoxor"
+aim_state = NodePath("../Aim")
+acceleration = 30.0
+metadata/_custom_type_script = "uid://bi0adah86ibjm"
 
-[node name="Move" type="Node" parent="StateMachine" unique_id=1468771386 node_paths=PackedStringArray("idle_state", "sprint_state", "fall_state", "jump_state")]
+[node name="Move" type="Node" parent="StateMachine" unique_id=1691187027 node_paths=PackedStringArray("idle_state", "sprint_state", "fall_state", "jump_state")]
 script = ExtResource("5_gvcic")
 idle_state = NodePath("../Idle")
 sprint_state = NodePath("../Sprint")
@@ -69,11 +292,11 @@ fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
 can_move = true
 move_speed = 8.0
-acceleration = 20.0
-rotation_speed = 12.0
-metadata/_custom_type_script = "uid://byggpmwonoxor"
+acceleration = 12.0
+rotation_speed = 5.0
+metadata/_custom_type_script = "uid://bi0adah86ibjm"
 
-[node name="Sprint" type="Node" parent="StateMachine" unique_id=1573492167 node_paths=PackedStringArray("idle_state", "move_state", "fall_state", "jump_state")]
+[node name="Sprint" type="Node" parent="StateMachine" unique_id=160303216 node_paths=PackedStringArray("idle_state", "move_state", "fall_state", "jump_state")]
 script = ExtResource("6_b5h5d")
 idle_state = NodePath("../Idle")
 move_state = NodePath("../Move")
@@ -82,35 +305,70 @@ jump_state = NodePath("../Jump")
 can_move = true
 move_speed = 20.0
 acceleration = 20.0
-rotation_speed = 12.0
-metadata/_custom_type_script = "uid://byggpmwonoxor"
+rotation_speed = 5.0
+metadata/_custom_type_script = "uid://bi0adah86ibjm"
 
-[node name="Fall" type="Node" parent="StateMachine" unique_id=280923700 node_paths=PackedStringArray("idle_state")]
+[node name="Fall" type="Node" parent="StateMachine" unique_id=2000296116 node_paths=PackedStringArray("idle_state", "move_state", "sprint_state", "jump_state")]
 script = ExtResource("7_sos30")
 idle_state = NodePath("../Idle")
+move_state = NodePath("../Move")
+sprint_state = NodePath("../Sprint")
+jump_state = NodePath("../Jump")
 can_move = true
-move_speed = 2.0
-acceleration = 20.0
+move_speed = 20.0
+acceleration = 5.0
 rotation_speed = 1.0
-gravity = 10.0
-metadata/_custom_type_script = "uid://byggpmwonoxor"
+gravity = 20.0
+metadata/_custom_type_script = "uid://bi0adah86ibjm"
 
-[node name="Aim" type="Node" parent="StateMachine" unique_id=2083796530 node_paths=PackedStringArray("idle_state")]
+[node name="Aim" type="Node" parent="StateMachine" unique_id=1843274964 node_paths=PackedStringArray("idle_state")]
 script = ExtResource("8_sos30")
 idle_state = NodePath("../Idle")
-acceleration = 100.0
-metadata/_custom_type_script = "uid://byggpmwonoxor"
+mouse_sensitivity = 0.3
+top_camera_bound = 0.7212036732050997
+bottom_camera_bound = -1.5707963267949
+acceleration = 30.0
+metadata/_custom_type_script = "uid://bi0adah86ibjm"
 
-[node name="Jump" type="Node" parent="StateMachine" unique_id=1352308005 node_paths=PackedStringArray("fall_state")]
+[node name="Jump" type="Node" parent="StateMachine" unique_id=562995439 node_paths=PackedStringArray("fall_state")]
 script = ExtResource("9_sdwat")
 jump_timer = 0.25
-jump_force = 3.0
+jump_force = 8.0
 fall_state = NodePath("../Fall")
 can_move = true
-move_speed = 8.0
-acceleration = 1.0
-rotation_speed = 12.0
+move_speed = 20.0
+acceleration = 5.0
+rotation_speed = 5.0
 gravity = 0.0
-metadata/_custom_type_script = "uid://byggpmwonoxor"
+metadata/_custom_type_script = "uid://bi0adah86ibjm"
+
+[node name="Pose" type="Node" parent="StateMachine" unique_id=878360235 node_paths=PackedStringArray("aim_state")]
+script = ExtResource("10_ujgvo")
+aim_state = NodePath("../Aim")
+metadata/_custom_type_script = "uid://bi0adah86ibjm"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=745742957]
+
+[node name="Crosshair" type="TextureRect" parent="CanvasLayer" unique_id=518470453]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture = ExtResource("10_dlwrr")
+expand_mode = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1619598978]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_h3la4")
 
 [editable path="Model/Arrow"]

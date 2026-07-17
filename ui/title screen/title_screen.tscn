@@ -78,3 +78,11 @@ layout_mode = 2
 layout_mode = 2
 text = "Settings"
 scene_path = &"uid://cgfhweurfuits"
+
+[node name="TestSceneButton" type="MarginContainer" parent="Interactive Elements/VBoxContainer/Interactive Elements/Buttons" unique_id=938289685]
+layout_mode = 2
+
+[node name="Load Settings" parent="Interactive Elements/VBoxContainer/Interactive Elements/Buttons/TestSceneButton" unique_id=818305195 instance=ExtResource("1_whhaw")]
+layout_mode = 2
+text = "Test Scene"
+scene_path = &"uid://cvgqlfi6vlxud"

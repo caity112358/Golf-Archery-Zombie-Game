@@ -1,42 +1,39 @@
-extends Entity
+class_name Player extends Entity
 
-@export_group("Camera")
-@export_range(0.0, 1.0) var mouse_sensitivity: float = 0.5
+@export var aim_state: PlayerState
+@export var camera_pivot: Node3D
+@export var camera: Camera3D
+@export var hurtbox: Area3D
 
-var camera_input_directon: Vector2 = Vector2.ZERO
-
-@onready var camera_pivot: Node3D = %CameraPivot
-
+signal sound_made(sound_volume: Constants.sound_volume, location: Vector3)
+signal stroke_added(amount_added: int)
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	initialise_state_machine()
+	setup_state_machine()
+	hurtbox.body_entered.connect(take_damage)
 
-func initialise_state_machine() -> void:
-	pass
+func _exit_tree() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("left_click"):
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	if event.is_action_pressed("escape"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+func setup_state_machine() -> void:
+	state_machine.entity = self
+	state_machine.camera = camera
+	state_machine.camera_pivot = camera_pivot
+	state_machine.setup_state_machine()
 
-func _unhandled_input(event: InputEvent) -> void:
-	var is_camera_motion: bool = (
-		event is InputEventMouseMotion and
-		Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
-	)
+func pickup_arrow() -> void:
+	state_machine.change_state(aim_state)
+
+func take_damage(body: Node3D) -> void:
+	if body.has_hit:
+		return
 	
-	if is_camera_motion:
-		camera_input_directon = event.screen_relative * mouse_sensitivity
+	add_stroke(body.damage_amount)
+	body.set_has_hit(true)
 
-func move_camera(delta: float) -> void:
-	camera_pivot.rotation.x += camera_input_directon.y * delta
-	camera_pivot.rotation.x = clamp(camera_pivot.rotation.x, -PI / 6.0, PI / 3.0)
-	
-	camera_pivot.rotation.y -= camera_input_directon.x * delta
-	
-	camera_input_directon = Vector2.ZERO
+func make_sound(sound_volume: Constants.sound_volume) -> void:
+	sound_made.emit(sound_volume, global_position)
 
-func _physics_process(delta: float) -> void:
-	move_camera(delta) #check for camera movement in state (aim has diff camera angles)
+func add_stroke(amount_added: int) -> void:
+	stroke_added.emit(amount_added)
