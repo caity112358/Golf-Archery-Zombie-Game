@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bkc3yv7kbe3uc"]
+
+[ext_resource type="Script" uid="uid://ccic7vlmb04gf" path="res://ui/course_ui.gd" id="1_w0id6"]
+
+[node name="CourseUI" type="CanvasLayer" unique_id=1896442631]
+script = ExtResource("1_w0id6")
+
+[node name="StrokeCounter" type="Label" parent="." unique_id=1444533036]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 23.0
+size_flags_horizontal = 6
+size_flags_vertical = 6

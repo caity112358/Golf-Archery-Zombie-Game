@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://utukdd6qjg15"]
+
+[ext_resource type="Script" uid="uid://c6n5jgiyypirb" path="res://levels/classes/course_manager.gd" id="1_1jvvt"]
+[ext_resource type="PackedScene" uid="uid://bkc3yv7kbe3uc" path="res://ui/course_ui.tscn" id="2_72c76"]
+[ext_resource type="PackedScene" uid="uid://bxdkvnu0gptkq" path="res://entities/player/player_char.tscn" id="2_od5px"]
+[ext_resource type="PackedScene" uid="uid://c3loh5plbh2vy" path="res://levels/classes/course_node.tscn" id="3_72c76"]
+[ext_resource type="Script" uid="uid://cp1sv4y4rmia6" path="res://levels/level_one/disco_cylinder.gd" id="5_72c76"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ilxii"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_mcmbb"]
+sky_material = SubResource("ProceduralSkyMaterial_ilxii")
+
+[sub_resource type="Environment" id="Environment_fn6b2"]
+background_mode = 2
+sky = SubResource("Sky_mcmbb")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ng4lq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_72c76"]
+transparency = 1
+albedo_color = Color(0.6666667, 0.7882353, 0.69803923, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ilxii"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_color = Color(0.6666667, 0.7882353, 0.69803923, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mcmbb"]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+albedo_color = Color(0.6666667, 0.7882353, 0.69803923, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w7gy2"]
+transparency = 4
+albedo_color = Color(0.6666667, 0.7882353, 0.69803923, 1)
+
+[node name="CourseManager" type="Node" unique_id=1584638112 node_paths=PackedStringArray("player", "course_ui", "course_node")]
+script = ExtResource("1_1jvvt")
+player = NodePath("PlayerCharacter")
+course_ui = NodePath("CourseUI")
+course_node = NodePath("CourseNode")
+metadata/_custom_type_script = "uid://c6n5jgiyypirb"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1982691055]
+environment = SubResource("Environment_fn6b2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=941525618]
+transform = Transform3D(-0.8660254, -0.50000006, -2.1855696e-08, 0, -4.371139e-08, 1, -0.50000006, 0.8660254, 3.7855173e-08, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CourseUI" parent="." unique_id=1896442631 instance=ExtResource("2_72c76")]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1742441812]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3857727, 0, -3.6714478)
+use_collision = true
+collision_layer = 3
+size = Vector3(21.272156, 1, 16.167847)
+
+[node name="PlayerCharacter" parent="." unique_id=1135699212 instance=ExtResource("2_od5px")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3.3881323, 0.5, 0)
+
+[node name="CourseNode" parent="." unique_id=673044303 instance=ExtResource("3_72c76")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8502703, 0, -8.301826)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1456694720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.192688)
+mesh = SubResource("CylinderMesh_ng4lq")
+surface_material_override/0 = SubResource("StandardMaterial3D_72c76")
+script = ExtResource("5_72c76")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1447901486]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.7178407)
+mesh = SubResource("CylinderMesh_ng4lq")
+surface_material_override/0 = SubResource("StandardMaterial3D_ilxii")
+script = ExtResource("5_72c76")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=1942607548]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.2629598)
+mesh = SubResource("CylinderMesh_ng4lq")
+surface_material_override/0 = SubResource("StandardMaterial3D_mcmbb")
+script = ExtResource("5_72c76")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1508907619]
+mesh = SubResource("CylinderMesh_ng4lq")
+surface_material_override/0 = SubResource("StandardMaterial3D_w7gy2")
+script = ExtResource("5_72c76")

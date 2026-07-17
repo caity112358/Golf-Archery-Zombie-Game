@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://cvgqlfi6vlxud"]
+
+[ext_resource type="Script" uid="uid://c6n5jgiyypirb" path="res://levels/classes/course_manager.gd" id="1_0wynk"]
+[ext_resource type="PackedScene" uid="uid://bxdkvnu0gptkq" path="res://entities/player/player_char.tscn" id="1_jdpn8"]
+[ext_resource type="PackedScene" uid="uid://ei5wekj0ebgt" path="res://entities/enemies/basic_enemy/enemy.tscn" id="2_5krfb"]
+[ext_resource type="PackedScene" uid="uid://bkc3yv7kbe3uc" path="res://ui/course_ui.tscn" id="4_x46hq"]
+[ext_resource type="PackedScene" uid="uid://c3loh5plbh2vy" path="res://levels/classes/course_node.tscn" id="5_ohqux"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jdpn8"]
+sky_top_color = Color(0.63779837, 0.31909108, 0.5346805, 1)
+sky_horizon_color = Color(0.77136594, 0.5838004, 0.22175029, 1)
+ground_bottom_color = Color(0.44902003, 0.59048295, 0.8902559, 1)
+ground_horizon_color = Color(0.67399657, 0.5834726, 0.6805502, 1)
+energy_multiplier = 0.6
+
+[sub_resource type="Sky" id="Sky_5krfb"]
+sky_material = SubResource("ProceduralSkyMaterial_jdpn8")
+
+[sub_resource type="Environment" id="Environment_0wynk"]
+background_mode = 2
+sky = SubResource("Sky_5krfb")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jdpn8"]
+albedo_color = Color(0.7176471, 0.6862745, 1, 1)
+metallic = 1.0
+metallic_specular = 0.86
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5krfb"]
+albedo_color = Color(0.8392157, 0.6862745, 1, 1)
+metallic = 1.0
+metallic_specular = 0.86
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0wynk"]
+albedo_color = Color(1, 0.6862745, 1, 1)
+metallic = 1.0
+metallic_specular = 0.86
+
+[node name="Test Scene" type="Node" unique_id=1776046359 node_paths=PackedStringArray("player", "enemies", "course_ui", "course_node")]
+script = ExtResource("1_0wynk")
+player = NodePath("PlayerCharacter")
+enemies = [NodePath("BasicZombie"), NodePath("BasicZombie2"), NodePath("BasicZombie3"), NodePath("BasicZombie4"), NodePath("BasicZombie5"), NodePath("BasicZombie6"), NodePath("BasicZombie7"), NodePath("BasicZombie8"), NodePath("BasicZombie9"), NodePath("BasicZombie10")]
+course_ui = NodePath("CourseUI")
+course_node = NodePath("CourseNode")
+metadata/_custom_type_script = "uid://c6n5jgiyypirb"
+
+[node name="CourseUI" parent="." unique_id=1896442631 instance=ExtResource("4_x46hq")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1229339259]
+environment = SubResource("Environment_0wynk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1968490858]
+transform = Transform3D(-1, 8.742278e-08, 3.821371e-15, 0, -4.371139e-08, 1, 8.742278e-08, 1, 4.371139e-08, 0, 0, 0)
+shadow_enabled = true
+shadow_blur = 8.0
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=184541833]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5, -0.5, -4)
+use_collision = true
+collision_layer = 3
+size = Vector3(72, 1, 79)
+material = SubResource("StandardMaterial3D_jdpn8")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1607196483]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0.5, -4)
+use_collision = true
+collision_layer = 3
+size = Vector3(35, 1, 79)
+material = SubResource("StandardMaterial3D_5krfb")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=2119048532]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 1.5, -4)
+use_collision = true
+collision_layer = 3
+size = Vector3(103, 1, 79)
+material = SubResource("StandardMaterial3D_0wynk")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=437004167]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 42.996353)
+use_collision = true
+size = Vector3(19, 1, 7)
+
+[node name="PlayerCharacter" parent="." unique_id=1837105256 instance=ExtResource("1_jdpn8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="BasicZombie" parent="." unique_id=2108565103 instance=ExtResource("2_5krfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 26)
+
+[node name="BasicZombie2" parent="." unique_id=143667792 instance=ExtResource("2_5krfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 26)
+
+[node name="BasicZombie3" parent="." unique_id=1615519623 instance=ExtResource("2_5krfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 20)
+
+[node name="BasicZombie4" parent="." unique_id=1716937948 instance=ExtResource("2_5krfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1, 20)
+
+[node name="BasicZombie5" parent="." unique_id=1822510965 instance=ExtResource("2_5krfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1, 15)
+
+[node name="BasicZombie6" parent="." unique_id=810640502 instance=ExtResource("2_5krfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 1, 15)
+
+[node name="BasicZombie7" parent="." unique_id=55135005 instance=ExtResource("2_5krfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 1, 19)
+
+[node name="BasicZombie8" parent="." unique_id=2092035948 instance=ExtResource("2_5krfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 19)
+
+[node name="BasicZombie9" parent="." unique_id=1632728022 instance=ExtResource("2_5krfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 25)
+
+[node name="BasicZombie10" parent="." unique_id=316321577 instance=ExtResource("2_5krfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -16)
+
+[node name="CourseNode" parent="." unique_id=673044303 instance=ExtResource("5_ohqux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.14984, 1.9999981, 1.6042709)

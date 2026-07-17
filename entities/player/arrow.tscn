@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://dqyrimmch5tb0"]
+
+[ext_resource type="Script" uid="uid://bg5gt3juv400c" path="res://entities/player/arrow.gd" id="1_78yle"]
+[ext_resource type="PackedScene" uid="uid://j5dqhjr607jb" path="res://entities/player/model/arrow.blend" id="2_dh4ca"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dh4ca"]
+radius = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dh4ca"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f3tst"]
+radius = 0.3
+
+[node name="Arrow" type="CharacterBody3D" unique_id=177486293]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, 0.5, 0, -0.5, -2.1855694e-08, 0, 0, 0)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_78yle")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=986627825]
+transform = Transform3D(1.4, 0, 0, 0, -6.119594e-08, -1.4, 0, 1.4, -6.119594e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_dh4ca")
+
+[node name="ArrowModel" parent="." unique_id=174090327 instance=ExtResource("2_dh4ca")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, -4.3008175e-08, 0.98391235)
+
+[node name="Cube" parent="ArrowModel" index="0" unique_id=602355109]
+surface_material_override/0 = SubResource("StandardMaterial3D_dh4ca")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=107067333]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=578007199]
+transform = Transform3D(1.4, 0, 0, 0, -6.119594e-08, 1.4, 0, -1.4, -6.119594e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_f3tst")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+
+[editable path="ArrowModel"]

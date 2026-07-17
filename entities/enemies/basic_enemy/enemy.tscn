@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://ei5wekj0ebgt"]
+
+[ext_resource type="Script" uid="uid://dcr31cmlk87i" path="res://entities/enemies/basic_enemy/enemy.gd" id="1_58p0g"]
+[ext_resource type="Script" uid="uid://crx7wttn24rm4" path="res://entities/enemies/basic_enemy/state_machine.gd" id="2_d1v8t"]
+[ext_resource type="Script" uid="uid://yx65luihyl63" path="res://entities/enemies/basic_enemy/states/idle.gd" id="3_43am0"]
+[ext_resource type="Script" uid="uid://cjk6b2xv3qerq" path="res://entities/enemies/basic_enemy/states/chase.gd" id="4_43am0"]
+[ext_resource type="Script" uid="uid://ciee6ki6hdeqt" path="res://entities/enemies/basic_enemy/states/attack.gd" id="5_58p0g"]
+[ext_resource type="Script" uid="uid://c5386v0rv054s" path="res://entities/enemies/basic_enemy/states/fall.gd" id="6_d1v8t"]
+[ext_resource type="PackedScene" uid="uid://j5dqhjr607jb" path="res://entities/player/model/arrow.blend" id="7_58p0g"]
+[ext_resource type="Script" uid="uid://c1eksmob4jbci" path="res://entities/enemies/basic_enemy/states/investigate.gd" id="7_bows4"]
+[ext_resource type="Script" uid="uid://bajxhb6nk2hj7" path="res://entities/enemies/basic_enemy/attack_collision.gd" id="9_rkfia"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rrp0o"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_b4nis"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvc0s"]
+albedo_color = Color(0.42892128, 0.6793052, 0.6218503, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_58p0g"]
+points = PackedVector3Array(0, 0, 0, 15, -5, 30, -15, -5, 30, -15, 5, 30, 15, 5, 30)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g5hbx"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rkfia"]
+radius = 0.25
+height = 1.0
+
+[node name="BasicZombie" type="CharacterBody3D" unique_id=2108565103 node_paths=PackedStringArray("model", "state_machine")]
+script = ExtResource("1_58p0g")
+model = NodePath("Model")
+state_machine = NodePath("StateMachine")
+metadata/_custom_type_script = "uid://bl38734rgx2tu"
+
+[node name="StateMachine" type="Node" parent="." unique_id=152624788 node_paths=PackedStringArray("investigate_state", "initial_state")]
+script = ExtResource("2_d1v8t")
+investigate_state = NodePath("Investigate")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://bq8n4kqav3j0e"
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1577644757 node_paths=PackedStringArray("chase_state", "fall_state")]
+script = ExtResource("3_43am0")
+chase_state = NodePath("../Chase")
+fall_state = NodePath("../Fall")
+can_move = true
+move_speed = 5.0
+acceleration = 4.0
+rotation_speed = 1.0
+metadata/_custom_type_script = "uid://cn7ad1i3yr0k7"
+
+[node name="Chase" type="Node" parent="StateMachine" unique_id=884287182 node_paths=PackedStringArray("idle_state", "fall_state", "attack_state")]
+script = ExtResource("4_43am0")
+idle_state = NodePath("../Idle")
+fall_state = NodePath("../Fall")
+attack_state = NodePath("../Attack")
+can_move = true
+move_speed = 5.0
+acceleration = 5.0
+rotation_speed = 10.0
+metadata/_custom_type_script = "uid://cn7ad1i3yr0k7"
+
+[node name="Attack" type="Node" parent="StateMachine" unique_id=1130849559 node_paths=PackedStringArray("chase_state", "attack_collision")]
+script = ExtResource("5_58p0g")
+chase_state = NodePath("../Chase")
+attack_collision = NodePath("../../AttackCollision")
+metadata/_custom_type_script = "uid://cn7ad1i3yr0k7"
+
+[node name="Fall" type="Node" parent="StateMachine" unique_id=1975111274 node_paths=PackedStringArray("idle_state")]
+script = ExtResource("6_d1v8t")
+idle_state = NodePath("../Idle")
+metadata/_custom_type_script = "uid://cn7ad1i3yr0k7"
+
+[node name="Investigate" type="Node" parent="StateMachine" unique_id=2056879512 node_paths=PackedStringArray("idle_state", "chase_state")]
+script = ExtResource("7_bows4")
+idle_state = NodePath("../Idle")
+chase_state = NodePath("../Chase")
+can_move = true
+move_speed = 2.0
+acceleration = 5.0
+rotation_speed = 10.0
+metadata/_custom_type_script = "uid://cn7ad1i3yr0k7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1780502355]
+shape = SubResource("CapsuleShape3D_rrp0o")
+
+[node name="Model" type="Node3D" parent="." unique_id=839574542]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Model" unique_id=1386974309]
+mesh = SubResource("CapsuleMesh_b4nis")
+surface_material_override/0 = SubResource("StandardMaterial3D_uvc0s")
+
+[node name="arrow" parent="Model" unique_id=1686752852 instance=ExtResource("7_58p0g")]
+transform = Transform3D(0.46, 0, 0, 0, 0.46, 0, 0, 0, 0.46, 0, 0, 0.25)
+
+[node name="Sight" type="Area3D" parent="Model" unique_id=1273267536]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Model/Sight" unique_id=1531982036]
+shape = SubResource("ConvexPolygonShape3D_58p0g")
+
+[node name="AttackCollision" type="StaticBody3D" parent="." unique_id=1385166432]
+visible = false
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("9_rkfia")
+damage_amount = 1
+
+[node name="AttackHitbox" type="CollisionShape3D" parent="AttackCollision" unique_id=1370621377]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 1)
+shape = SubResource("CapsuleShape3D_g5hbx")
+
+[node name="HitboxMesh" type="MeshInstance3D" parent="AttackCollision" unique_id=1906874738]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 1)
+mesh = SubResource("CapsuleMesh_rkfia")
