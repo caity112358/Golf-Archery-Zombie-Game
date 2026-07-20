@@ -8,5 +8,6 @@ func _physics_process(delta: float) -> void:
 	material.albedo_color = Color(
 		0.5 + 0.5 * cos((frame_counter * delta)), 
 		0.5 + 0.5 * cos((frame_counter * delta) + 2 * PI / 3), 
-		0.5 + 0.5 * cos((frame_counter * delta) + 4 * PI / 3)
+		0.5 + 0.5 * cos((frame_counter * delta) + 4 * PI/ 3),
+		0.5 + 0.5 * cos((frame_counter * delta) / 10)
 		)

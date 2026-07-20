@@ -21,6 +21,11 @@ SceneLoader="*uid://8hfu40sop5xv"
 Constants="*uid://dj5yu5fg3p2u7"
 SettingsManager="*uid://dxbssug27du4h"
 
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
 [file_customization]
 
 folder_colors={

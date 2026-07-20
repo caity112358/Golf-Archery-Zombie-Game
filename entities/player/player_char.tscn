@@ -220,7 +220,6 @@ _data = {
 }
 
 [node name="PlayerCharacter" type="CharacterBody3D" unique_id=1135699212 node_paths=PackedStringArray("aim_state", "camera_pivot", "camera", "hurtbox", "model", "state_machine")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 collision_layer = 5
 script = ExtResource("1_gvcic")
 aim_state = NodePath("StateMachine/Aim")
@@ -232,7 +231,7 @@ state_machine = NodePath("StateMachine")
 metadata/_custom_type_script = "uid://bl38734rgx2tu"
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=2004750562]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=360305513]
 unique_name_in_owner = true

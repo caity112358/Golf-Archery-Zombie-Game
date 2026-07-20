@@ -11,6 +11,7 @@ signal stroke_added(amount_added: int)
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	setup_state_machine()
+	print(Vector3.FORWARD)
 	hurtbox.body_entered.connect(take_damage)
 
 func _exit_tree() -> void:
