@@ -56,62 +56,63 @@ shadow_enabled = true
 shadow_blur = 8.0
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=184541833]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5, -0.5, -4)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 39.124092, -0.5, -39.12591)
 use_collision = true
 collision_layer = 3
 size = Vector3(72, 1, 79)
 material = SubResource("StandardMaterial3D_jdpn8")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1607196483]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0.5, -4)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 39.12409, 0.5, 11.374088)
 use_collision = true
 collision_layer = 3
 size = Vector3(35, 1, 79)
 material = SubResource("StandardMaterial3D_5krfb")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=2119048532]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 1.5, -4)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 39.124084, 1.5, 80.374084)
 use_collision = true
 collision_layer = 3
 size = Vector3(103, 1, 79)
 material = SubResource("StandardMaterial3D_0wynk")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=437004167]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 42.996353)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.872265, 0, -21.625914)
 use_collision = true
 size = Vector3(19, 1, 7)
 
 [node name="PlayerCharacter" parent="." unique_id=1837105256 instance=ExtResource("1_jdpn8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.900833, 0, -65.67635)
 
 [node name="BasicZombie" parent="." unique_id=2108565103 instance=ExtResource("2_5krfb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 26)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.049126, 1, -10.839806)
 
 [node name="BasicZombie2" parent="." unique_id=143667792 instance=ExtResource("2_5krfb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 26)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.049126, 1, -10.839806)
 
 [node name="BasicZombie3" parent="." unique_id=1615519623 instance=ExtResource("2_5krfb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.049126, 1, -16.839806)
 
 [node name="BasicZombie4" parent="." unique_id=1716937948 instance=ExtResource("2_5krfb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1, 20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.049126, 1, -16.839806)
 
 [node name="BasicZombie5" parent="." unique_id=1822510965 instance=ExtResource("2_5krfb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1, 15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.049126, 1, -21.839806)
 
 [node name="BasicZombie6" parent="." unique_id=810640502 instance=ExtResource("2_5krfb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 1, 15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.049126, 1, -21.839806)
 
 [node name="BasicZombie7" parent="." unique_id=55135005 instance=ExtResource("2_5krfb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 1, 19)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.049126, 1, -17.839806)
 
 [node name="BasicZombie8" parent="." unique_id=2092035948 instance=ExtResource("2_5krfb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 19)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.049126, 1, -17.839806)
 
 [node name="BasicZombie9" parent="." unique_id=1632728022 instance=ExtResource("2_5krfb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.049126, 1, -11.839806)
 
 [node name="BasicZombie10" parent="." unique_id=316321577 instance=ExtResource("2_5krfb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.049126, 1, -52.839806)
 
 [node name="CourseNode" parent="." unique_id=673044303 instance=ExtResource("5_ohqux")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.14984, 1.9999981, 1.6042709)
