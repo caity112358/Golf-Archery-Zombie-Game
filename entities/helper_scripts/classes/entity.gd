@@ -9,7 +9,7 @@ func rotate_model(move_direction: Vector3, rotation_speed: float, delta: float) 
 	if move_direction.length() > 0.2:
 		last_movement_direction = move_direction
 	
-	var target_angle: float = Vector3.FORWARD.signed_angle_to(
+	var target_angle: float = Vector3.BACK.signed_angle_to(
 		last_movement_direction, 
 		Vector3.UP
 	)
